@@ -1,0 +1,7 @@
+/.vscode
+/app
+/askme
+/templates
+/venv
+/db*
+/manage.py
