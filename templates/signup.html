@@ -1,0 +1,65 @@
+{% extends 'include/base.html' %}
+
+{% block content %}
+<div class="col-9 login">
+    <div class="titles">
+        <div class="selected">registration</div>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="formGroupExampleInput">login:</label>
+            <span class="alert alert-danger" role="alert">
+                недопустимый логин
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="придумайте себе login..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">email:</label>
+            <span class="alert alert-danger" role="alert">
+                такой email уже зарегестрирован
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите ваш email..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">nickname:</label>
+            <span class="alert alert-danger" role="alert">
+                это имя уже занято
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="придумайте себе никнейм..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">password:</label>
+            <span class="alert alert-danger" role="alert">
+                недопустимый пароль
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="придумайте себе пароль..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">repeat password:</label>
+            <span class="alert alert-danger" role="alert">
+                пароли не совпадают
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите пароль еще раз..">
+        </div>
+        <span class="alert alert-danger" role="alert">
+            выбран недопустимый файл
+        </span>
+        <div class="input-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile04">
+                <label class="custom-file-label" for="inputGroupFile04"></label>
+            </div>
+            <div class="input-group-append form-group">
+                <button class="btn btn-success ask_btn" type="button">UPLOAD</button>
+            </div>
+        </div>
+        <button class="btn btn-success ask_btn" type="submit">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </form>
+</div>
+
+{% endblock content %}

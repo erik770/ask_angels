@@ -1,0 +1,38 @@
+{% extends 'include/base.html' %}
+
+{% block content %}      
+
+<div class="col-9 new_question">
+    <div class="titles">
+        <div class="selected">ask new question</div>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="formGroupExampleInput">заголовок:</label>
+            <span class="alert alert-danger" role="alert">
+                вы забыли ввести заголовок
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите заголовок вопроса..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">текст вопроса:</label>
+            <span class="alert alert-danger" role="alert">
+                вы забыли ввести текст вопроса
+            </span>
+            <textarea type="text" class="form-control" id="formGroupExampleInput2" rows="8"
+                placeholder="подробно опишите ваш вопрос.."></textarea>
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">tags:</label>
+            <span class="alert alert-danger" role="alert">
+                вы забыли указать теги
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите теги вопроса..">
+        </div>
+        <button class="btn btn-success ask_btn" type="submit">СПРОСИТЬ</button>
+    </form>
+</div>
+
+{% endblock content %}

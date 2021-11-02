@@ -1,0 +1,19 @@
+{% extends 'include/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="col-9">
+    <div class="titles ">
+        <a href="" class="selected">new questions</a>
+        <a href="{% url 'hot' %}" class="hot">hot questions</a>
+    </div>
+    {% for question in contentlist %}
+        {% include "include/single_question.html" %}
+    {% endfor %}
+
+    {% include "include/paginator.html" %}
+</div>                        
+
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends 'include/base.html' %}
+
+{% block content %}
+
+<div class="col-9 login">
+    <div class="titles">
+        <div class="selected">log in</div>
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="formGroupExampleInput">login:</label>
+            <span class="alert alert-danger" role="alert">
+                такой login не зарегестрирован
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите ваш login..">
+        </div>
+        <div class="form-group">
+            <label for="formGroupExampleInput">password:</label>
+            <span class="alert alert-danger" role="alert">
+                неправильный пароль
+            </span>
+            <input type="text" class="form-control" id="formGroupExampleInput"
+                placeholder="введите ваш пароль..">
+        </div>
+        <div class="question_answer">
+            <a href="{% url 'signup' %}">create new account</a>
+        </div>
+        <button class="btn btn-success ask_btn" type="submit">ВОЙТИ</button>
+    </form>
+</div>
+
+{% endblock content %}

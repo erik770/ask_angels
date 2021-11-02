@@ -1,7 +1,5 @@
 /.vscode
-/app
-/askme
-/templates
 /venv
-/db*
-/manage.py
+__pycache__/
+/node_modules
+*.sqlite3

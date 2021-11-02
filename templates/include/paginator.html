@@ -1,0 +1,28 @@
+
+<nav aria-label="Page navigation example">
+    <span class="step-links">
+        <ul class="pagination justify-content-center">
+            
+            {% if contentlist.previous_page_number != 1 %}
+            <li class="page-item enabled"><a class="page-link" href="?page=1" tabindex="-1">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">...</a></li>
+            {% endif %}
+
+            {% if contentlist.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ contentlist.previous_page_number }}">{{ contentlist.previous_page_number }}</a></li>
+            {% endif %}
+            
+            <li class="page-item"><a class="page-link" href="?page={{ contentlist.number }}">{{ contentlist.number }}</a></li>
+            
+            {% if contentlist.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ contentlist.next_page_number}}">{{ contentlist.next_page_number}}</a></li>
+            {% endif %}
+
+            {% if contentlist.next_page_number != contentlist.paginator.num_pages %}
+            <li class="page-item"><a class="page-link" href="#">...</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ contentlist.paginator.num_pages}}">{{ contentlist.paginator.num_pages}}</a></li>
+            {% endif %}
+
+        </ul>
+    </span>
+</nav>                  

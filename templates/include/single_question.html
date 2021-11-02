@@ -1,0 +1,50 @@
+{% load static %}
+
+<div class="row Question">
+    <div class="col-2 avatar_and_rating">
+        <!--аватарка-->
+        <img class="avatar" src="{{ question.avatar }}" alt="">
+        <div class="rating">
+            <div class="btn-group-vertical">
+                <button type="button" class="btn btn-success">
+                    <span class="badge badge-light">{{ question.like_counter }}</span>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <span class="badge badge-light">{{ question.like_counter }}</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-10 question_info">
+        <!--вопрос-->
+        <div class="row question_topic">
+            <h3> <a href="{% url 'question' id=question.id %}" class="">
+            {{ question.title }}
+            </a>
+            </h3>
+        </div>
+        <div class="row question_text">
+            <h5>question: </h5>
+            {{ question.text }}
+        </div>
+        <div class="row question_answer">
+            <h5>best answer: </h5>
+            {{ question.best_ans }}
+        </div>
+        <div class="row">
+            <div class="col-4 question_answer">
+                <a href="{% url 'question' id=question.id %}" class="">
+                    more answers ({{ question.numb_of_answers }})
+                </a>
+            </div>
+            <div class="col-8">
+                <div class="tags">
+                    <h6>tags:</h6>
+                    {% for tag in question.tags %}
+                    <a href="{% url 'tag' tagid=tag %}" class="tag">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
