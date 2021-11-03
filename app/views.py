@@ -20,7 +20,7 @@ questions = [
         "title": f"title {i}", 
         "text": f"this is text for {i} question", 
         "best_ans": f"this is best answer for {i} question", 
-        "numb_of_answers": f"{i}",
+        "numb_of_answers": f"{i+1}",
         "tags": global_info['tags'][:3],
         "like_counter": f"{i}",
         "dislike_counter": f"{i}",
