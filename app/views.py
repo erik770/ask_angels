@@ -38,7 +38,8 @@ answers = [
     } for i in range(1, 7)
 ]
 
-def paginate(objects_list, request, per_page = 4):
+def paginate(objects_list, request):
+    per_page = request.GET.get('limit', 6)
     paginator = Paginator(objects_list, per_page)
     page_number = request.GET.get('page')
     content = paginator.get_page(page_number)
