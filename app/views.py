@@ -1,42 +1,15 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
+from app.models import Answer, ProfileManager, Question, TagManager
+
 
 
 global_info = {
-    "tags": [
-        f"this_is_{j}_tag"
-        for j in range(10)
-        ],
-    "best_memb": [
-        f"angelname{k}"
-        for k in range(10)]
+    "tags": TagManager.best()[:10],
+    "best_memb": ProfileManager.best()[:10]
 }
 
-questions = [
-    {
-        "id": f'{i}',
-        "avatar": f"/static/img/avatar{i}.png",
-        "title": f"title {i}", 
-        "text": f"this is text for {i} question", 
-        "best_ans": f"this is best answer for {i} question", 
-        "numb_of_answers": f"{i+1}",
-        "tags": global_info['tags'][:3],
-        "like_counter": f"{i}",
-        "dislike_counter": f"{i}",
-    } for i in range(30)
-]
-
-answers = [
-    {
-        "number": {i},
-        "avatar": f"/static/img/avatar{i}.png",
-        "text": f"this is text for {i} answer", 
-        "like_counter": f"{i}",
-        "dislike_counter": f"{i}",
-        "correct_or_no": True,
-    } for i in range(1, 7)
-]
 
 def paginate(objects_list, request):
     per_page = request.GET.get('limit', 6)
@@ -47,9 +20,11 @@ def paginate(objects_list, request):
 
 
 def index(request):
+    questions = Question.objects.get_new_questions()
     return render(request, "index.html", {'contentlist': paginate(questions,request), 'global_info' : global_info})
 
 def hot(request):
+    questions = Question.objects.get_hot_questions()
     return render(request, "hot.html", {'contentlist': paginate(questions,request), 'global_info' : global_info})
 
 def login(request):
@@ -62,10 +37,14 @@ def ask(request):
     return render(request, "ask.html", {'global_info' : global_info})
 
 def new(request):
-    return render(request, "index.html", {'global_info' : global_info})
+    questions = Question.objects.get_new_questions()
+    return render(request, "index.html", {'contentlist': paginate(questions,request), 'global_info' : global_info})
 
 def tag(request, tagid):
+    questions = Question.objects.get_questions_by_tag(tagid)
     return render(request, "tag.html", {'contentlist': paginate(questions,request), 'tagid': tagid, 'global_info' : global_info})
 
 def question(request, id):
-    return render(request, "question.html", {'question': questions[id], 'contentlist': paginate(answers,request), 'id': id, 'global_info' : global_info})
+    question = Question.objects.get(pk=id)
+    answers = Answer.objects.get_by_question(question)
+    return render(request, "question.html", {'question': question, 'contentlist': paginate(answers,request), 'id': id, 'global_info' : global_info})
