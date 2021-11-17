@@ -30,19 +30,22 @@ class Tag(models.Model):
         return self.tag_name
 
 
-class Like(models.Model):
-    user = models.ForeignKey('Profile', on_delete=models.CASCADE, db_index=True)
-    
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default="")
-    object_id = models.PositiveIntegerField(default=1)
-    content_object = GenericForeignKey('content_type', 'object_id')
+class Vote(models.Model):
+    votes = (
+        (1, 'Like'),
+        (-1, 'Dislike')
+    )
 
-class Dislike(models.Model):
+    vote = models.SmallIntegerField(choices=votes)
+
     user = models.ForeignKey('Profile', on_delete=models.CASCADE, db_index=True)
     
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, default="")
     object_id = models.PositiveIntegerField(default=1)
-    content_object = GenericForeignKey('content_type', 'object_id')
+    content_object = GenericForeignKey('content_type', 'object_id', 'vote')
+    class Meta:
+        unique_together = (("content_type", "object_id", "user"),)
+
 
 class QuestionManager(models.Manager):
     def get_questions_by_tag(self, tag_name):
@@ -50,7 +53,7 @@ class QuestionManager(models.Manager):
         return self.filter(tags=tag)
 
     def get_hot_questions(self):
-        return self.order_by('-likes')  
+        return self.order_by('-votes')  
     
     def get_new_questions(self):
         return self.order_by('-creation_time') 
@@ -62,13 +65,18 @@ class Question(models.Model):
     creation_time = models.DateTimeField(default=timezone.now)
 
     author = models.ForeignKey('Profile', on_delete=models.CASCADE)
-    likes = GenericRelation('Like', related_query_name='question')
-    dislikes = GenericRelation('Dislike', related_query_name='question')
+    votes = GenericRelation('Vote', related_query_name='question')
     tags = models.ManyToManyField('Tag',related_name='question')
     objects = QuestionManager()
     
     def ans_count(self):
         return AnswerManager.get_by_question(self).count
+
+    def likes_count(self):
+        return self.votes.filter(vote='1').count()
+    
+    def dislikes_count(self):
+        return self.votes.filter(vote='-1').count()
 
 
 
@@ -84,8 +92,13 @@ class Answer(models.Model):
 
     author = models.ForeignKey('Profile', on_delete=models.CASCADE, db_index=True)
     question = models.ForeignKey('Question', on_delete=models.CASCADE, db_index=True)
-    likes = GenericRelation('Like', related_query_name='answer')
-    dislikes = GenericRelation('Dislike', related_query_name='answer')
+    votes = GenericRelation('Vote', related_query_name='answer')
 
 
     objects = AnswerManager()
+
+    def likes_count(self):
+        return self.votes.filter(vote='1').count()
+    
+    def dislikes_count(self):
+        return self.votes.filter(vote='-1').count()

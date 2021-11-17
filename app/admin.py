@@ -7,6 +7,5 @@ from app.models import *
 admin.site.register(Question)
 admin.site.register(Tag)
 admin.site.register(Profile)
-admin.site.register(Like)
-admin.site.register(Dislike)
+admin.site.register(Vote)
 admin.site.register(Answer)
