@@ -1,10 +1,10 @@
 # ask_angels
 а тут у меня проект по веб разработке сайт вопросов-ответов
 
-##Задание:
+## Задание:
 [тык](https://github.com/ziontab/tp-tasks/blob/master/files/markdown/technical_details.md)
 
-##Превью:
+## Превью:
 
 #### главная страница
 ![Alt text](img/main_page.png)
